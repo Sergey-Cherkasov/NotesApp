@@ -1,29 +1,17 @@
 package br.svcdev.notesapp.viewmodels
 
 import androidx.lifecycle.*
-import br.svcdev.notesapp.data.MainModel
+import br.svcdev.notesapp.repository.data.NotesData
+import br.svcdev.notesapp.view.ui.MainViewState
 
 class MainViewModel : ViewModel() {
 
-    private val viewStateLiveData = MutableLiveData<Int>()
-    private val mainModel: MainModel = MainModel()
-    private val observer: Observer<Int> = Observer{
-        viewStateLiveData.value = it
-    }
-    private val counterLiveData = mainModel.counterLiveData()
+    private val viewStateLiveData = MutableLiveData<MainViewState>()
 
     init {
-        counterLiveData.observeForever(observer)
+        viewStateLiveData.value = MainViewState(NotesData.getNotes())
     }
 
-    fun getViewState(): LiveData<Int> = viewStateLiveData
+    fun getViewState(): LiveData<MainViewState> = viewStateLiveData
 
-    fun onClickButton() {
-        mainModel.increaseCounter()
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        counterLiveData.removeObserver(observer)
-    }
 }
