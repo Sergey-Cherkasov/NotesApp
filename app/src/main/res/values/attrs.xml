@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="NoteView">
+        <attr name="android:background" format="color"/>
+        <attr name="android:layout_height" format="integer"/>
+        <attr name="android:layout_width" format="integer"/>
+    </declare-styleable>
+</resources>
