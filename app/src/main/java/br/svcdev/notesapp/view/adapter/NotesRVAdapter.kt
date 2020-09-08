@@ -3,12 +3,15 @@ package br.svcdev.notesapp.view.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import br.svcdev.notesapp.R
 import br.svcdev.notesapp.repository.model.Note
 import kotlinx.android.synthetic.main.note_recyclerview_item.view.*
 
-class NotesRVAdapter() : RecyclerView.Adapter<NotesRVAdapter.ViewHolder>() {
+class NotesRVAdapter(val onItemClick: ((Note) -> Unit)? = null) : RecyclerView.Adapter<NotesRVAdapter.ViewHolder>() {
     var notes: List<Note> = listOf()
         set(value) {
             field = value
@@ -25,15 +28,24 @@ class NotesRVAdapter() : RecyclerView.Adapter<NotesRVAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int = notes.size
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(note: Note) {
-            with(itemView) {
+
+            with(itemView as CardView) {
                 note_title.text = note.title
                 note_text.text = note.text
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-                    linear_layout.setBackgroundColor(resources.getColor(note.color, context.theme))
-                } else {
-                    linear_layout.setBackgroundColor(resources.getColor(note.color))
+                val color = when(note.color){
+                    Note.Color.RED -> R.color.colorRed_500
+                    Note.Color.INDIGO -> R.color.colorIndigo_500
+                    Note.Color.BLUE -> R.color.colorBlue_500
+                    Note.Color.GREEN -> R.color.colorGreen_500
+                    Note.Color.YELLOW -> R.color.colorYellow_500
+                    Note.Color.ORANGE -> R.color.colorOrange_500
+                    Note.Color.WHITE -> R.color.colorWhite
+                }
+                setCardBackgroundColor(ContextCompat.getColor(itemView.context, color))
+                itemView.setOnClickListener{
+                    onItemClick?.invoke(note)
                 }
             }
 

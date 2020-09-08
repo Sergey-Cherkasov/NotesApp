@@ -21,7 +21,10 @@ class MainActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         notes_recycler_view.layoutManager = StaggeredGridLayoutManager(2, 1)
-        adapter = NotesRVAdapter()
+
+        adapter = NotesRVAdapter{
+
+        }
         notes_recycler_view.adapter = adapter
 
         viewModel.getViewState().observe(this, { value ->
