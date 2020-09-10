@@ -2,13 +2,15 @@ package br.svcdev.notesapp.repository.model
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
+import java.util.*
 
 @Parcelize
 data class Note(
-    var id: String,
-    var title: String = "",
-    var text: String = "",
-    var color: Color = Color.WHITE) : Parcelable {
+    var mId: String,
+    var mTitle: String = "",
+    var mText: String = "",
+    var mColor: Color = Color.WHITE,
+    var mLastChanged: Date = Date()) : Parcelable {
 
     enum class Color {
         WHITE,
@@ -24,8 +26,17 @@ data class Note(
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
         other as Note
-        if (id != other.id) return false
+        if (mId != other.mId) return false
         return true
+    }
+
+    override fun hashCode(): Int {
+        var result = mId.hashCode()
+        result = 31 * result + mTitle.hashCode()
+        result = 31 * result + mText.hashCode()
+        result = 31 * result + mColor.hashCode()
+        result = 31 * result + mLastChanged.hashCode()
+        return result
     }
 
 }

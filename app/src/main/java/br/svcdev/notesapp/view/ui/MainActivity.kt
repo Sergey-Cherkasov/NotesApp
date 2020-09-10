@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         notes_recycler_view.layoutManager = StaggeredGridLayoutManager(2, 1)
 
         adapter = NotesRVAdapter{
-
+            NoteActivity.start(this, it)
         }
         notes_recycler_view.adapter = adapter
 
@@ -31,5 +31,8 @@ class MainActivity : AppCompatActivity() {
             value?.let { adapter.notes = it.notes }
         })
 
+        floating_button.setOnClickListener{
+            NoteActivity.start(this)
+        }
     }
 }

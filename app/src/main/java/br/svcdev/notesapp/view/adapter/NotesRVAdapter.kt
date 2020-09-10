@@ -32,9 +32,9 @@ class NotesRVAdapter(val onItemClick: ((Note) -> Unit)? = null) : RecyclerView.A
         fun bind(note: Note) {
 
             with(itemView as CardView) {
-                note_title.text = note.title
-                note_text.text = note.text
-                val color = when(note.color){
+                note_title.text = note.mTitle
+                note_text.text = note.mText
+                val color = when(note.mColor){
                     Note.Color.RED -> R.color.colorRed_500
                     Note.Color.INDIGO -> R.color.colorIndigo_500
                     Note.Color.BLUE -> R.color.colorBlue_500
