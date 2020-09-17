@@ -13,11 +13,11 @@ class FirestoreProvider: RemoteDataProvider {
     }
 
     private val store = FirebaseFirestore.getInstance()
-    private val notesRference = store.collection(NOTES_COLLECTION)
+    private val notesReference = store.collection(NOTES_COLLECTION)
 
     override fun subscribeToAllNotes(): LiveData<NoteResult> {
         val result = MutableLiveData<NoteResult>()
-        notesRference.addSnapshotListener { snapShop, error ->
+        notesReference.addSnapshotListener { snapShop, error ->
             error?.let {
                 result.value = NoteResult.Error(it)
             } ?: snapShop?.let {
@@ -30,7 +30,7 @@ class FirestoreProvider: RemoteDataProvider {
 
     override fun saveNote(note: Note): LiveData<NoteResult> {
         val result = MutableLiveData<NoteResult>()
-        notesRference.document(note.mId).set(note)
+        notesReference.document(note.mId).set(note)
             .addOnSuccessListener {snapShot ->
                 result.value = NoteResult.Success(note)
             }.addOnFailureListener {
@@ -41,7 +41,7 @@ class FirestoreProvider: RemoteDataProvider {
 
     override fun getNoteById(id: String): LiveData<NoteResult> {
         val result = MutableLiveData<NoteResult>()
-        notesRference.document(id).get()
+        notesReference.document(id).get()
             .addOnSuccessListener {snapShot ->
                 val note = snapShot.toObject(Note::class.java)
                 result.value = NoteResult.Success(note)
