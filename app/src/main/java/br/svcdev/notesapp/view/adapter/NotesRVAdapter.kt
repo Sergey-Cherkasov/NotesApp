@@ -11,7 +11,8 @@ import br.svcdev.notesapp.R
 import br.svcdev.notesapp.repository.model.Note
 import kotlinx.android.synthetic.main.note_recyclerview_item.view.*
 
-class NotesRVAdapter(val onItemClick: ((Note) -> Unit)? = null) : RecyclerView.Adapter<NotesRVAdapter.ViewHolder>() {
+class NotesRVAdapter(val onItemClick: ((Note) -> Unit)? = null) :
+    RecyclerView.Adapter<NotesRVAdapter.ViewHolder>() {
     var notes: List<Note> = listOf()
         set(value) {
             field = value

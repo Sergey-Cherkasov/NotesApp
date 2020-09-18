@@ -21,10 +21,11 @@ class NoteActivity: BaseActivity<Note?, NoteViewState>() {
         private const val NOTE_KEY = "note"
         private const val DATE_FORMAT = "dd.MM.yy HH:mm"
 
-        fun start(context: Context, noteId: String? = null) = Intent(context, NoteActivity::class.java).apply {
-            putExtra(NOTE_KEY, noteId)
-            context.startActivity(this)
-        }
+        fun start(context: Context, noteId: String? = null) =
+            Intent(context, NoteActivity::class.java).apply {
+                putExtra(NOTE_KEY, noteId)
+                context.startActivity(this)
+            }
     }
     private var note: Note? = null
     override val viewModel by lazy {
