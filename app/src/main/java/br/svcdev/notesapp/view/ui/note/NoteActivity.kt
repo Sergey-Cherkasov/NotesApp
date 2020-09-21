@@ -1,4 +1,4 @@
-package br.svcdev.notesapp.view.ui
+package br.svcdev.notesapp.view.ui.note
 
 import android.content.Context
 import android.content.Intent
@@ -6,11 +6,10 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import br.svcdev.notesapp.R
 import br.svcdev.notesapp.repository.model.Note
-import br.svcdev.notesapp.view.base.BaseActivity
+import br.svcdev.notesapp.view.ui.base.BaseActivity
 import br.svcdev.notesapp.viewmodels.NoteViewModel
 import kotlinx.android.synthetic.main.activity_note.*
 import java.text.SimpleDateFormat

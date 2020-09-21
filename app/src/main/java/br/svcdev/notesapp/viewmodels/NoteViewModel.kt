@@ -1,12 +1,9 @@
 package br.svcdev.notesapp.viewmodels
 
-import androidx.lifecycle.ViewModel
 import br.svcdev.notesapp.repository.data.NotesData
 import br.svcdev.notesapp.repository.model.Note
 import br.svcdev.notesapp.repository.model.NoteResult
-import br.svcdev.notesapp.view.base.BaseViewModel
-import br.svcdev.notesapp.view.ui.MainViewState
-import br.svcdev.notesapp.view.ui.NoteViewState
+import br.svcdev.notesapp.view.ui.note.NoteViewState
 
 class NoteViewModel: BaseViewModel<Note?, NoteViewState>() {
 
