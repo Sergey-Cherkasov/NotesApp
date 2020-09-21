@@ -53,10 +53,7 @@ class NoteActivity: BaseActivity<Note?, NoteViewState>() {
         val noteId = intent.getStringExtra(NOTE_KEY)
         noteId?.let {
             viewModel.loadNote(it)
-        } ?: let {
-            supportActionBar?.title = getString(R.string.new_note)
         }
-        initView()
     }
 
     private fun initView() {
@@ -95,5 +92,6 @@ class NoteActivity: BaseActivity<Note?, NoteViewState>() {
         supportActionBar?.title = note?.let {
             SimpleDateFormat(DATE_FORMAT, Locale.getDefault()).format(it.mLastChanged)
         }?: getString(R.string.new_note)
+        initView()
     }
 }
