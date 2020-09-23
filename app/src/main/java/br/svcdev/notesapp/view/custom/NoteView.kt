@@ -1,4 +1,4 @@
-package br.svcdev.notesapp.view
+package br.svcdev.notesapp.view.custom
 
 import android.content.Context
 import android.content.res.TypedArray

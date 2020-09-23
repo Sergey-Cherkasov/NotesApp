@@ -6,7 +6,7 @@ import br.svcdev.notesapp.repository.model.Note
 import br.svcdev.notesapp.repository.model.NoteResult
 import br.svcdev.notesapp.view.ui.main.MainViewState
 
-class MainViewModel : BaseViewModel<List<Note>?, MainViewState>() {
+class MainViewModel(val notesData: NotesData) : BaseViewModel<List<Note>?, MainViewState>() {
 
     private val notesObserver = Observer<NoteResult>{ result ->
         result ?: return@Observer
@@ -16,7 +16,7 @@ class MainViewModel : BaseViewModel<List<Note>?, MainViewState>() {
             is NoteResult.Error -> viewStateLiveData.value = MainViewState(error = result.error)
         }
     }
-    private val repositoryNotes = NotesData.getNotes()
+    private val repositoryNotes = notesData.getNotes()
 
     init {
         viewStateLiveData.value = MainViewState()
