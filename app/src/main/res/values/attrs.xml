@@ -5,4 +5,11 @@
         <attr name="android:layout_height" format="integer"/>
         <attr name="android:layout_width" format="integer"/>
     </declare-styleable>
+
+    <declare-styleable name="ColorCircleView">
+        <attr name="circleRadius" format="dimension"/>
+        <attr name="fillColor" format="color|reference"/>
+        <attr name="strokeColor" format="color|reference"/>
+        <attr name="strokeWidth" format="dimension"/>
+    </declare-styleable>
 </resources>

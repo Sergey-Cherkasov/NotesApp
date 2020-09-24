@@ -1,14 +1,12 @@
 package br.svcdev.notesapp.view.ui.splash
 
-import androidx.lifecycle.ViewModelProvider
 import br.svcdev.notesapp.view.ui.base.BaseActivity
 import br.svcdev.notesapp.view.ui.main.MainActivity
 import br.svcdev.notesapp.viewmodels.SplashViewModel
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class SplashActivity : BaseActivity<Boolean?, SplashViewState>() {
-    override val viewModel by lazy {
-        ViewModelProvider(this).get(SplashViewModel::class.java)
-    }
+    override val viewModel :SplashViewModel by viewModel()
     override val layoutResource : Int? = null
 
     override fun onResume() {

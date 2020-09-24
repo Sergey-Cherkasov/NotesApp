@@ -3,4 +3,8 @@
     <string name="image_button">Image button</string>
     <string name="new_note">New note</string>
     <string name="logout">Logout</string>
+    <string name="palette">Palette</string>
+    <string name="delete">Delete</string>
+    <string name="title">Заголовок</string>
+    <string name="text">Текст заметки</string>
 </resources>

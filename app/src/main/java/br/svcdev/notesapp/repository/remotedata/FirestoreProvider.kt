@@ -9,16 +9,16 @@ import br.svcdev.notesapp.repository.model.errors.NoAuthException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
-class FirestoreProvider: RemoteDataProvider {
+class FirestoreProvider(private val firebaseAuth: FirebaseAuth,
+                        private val store: FirebaseFirestore): RemoteDataProvider {
 
     companion object {
         private const val NOTES_COLLECTION = "notes"
         private const val USERS_COLLECTION = "users"
     }
 
-    private val store by lazy { FirebaseFirestore.getInstance() }
     private val currentUser
-        get() = FirebaseAuth.getInstance().currentUser
+        get() = firebaseAuth.currentUser
 
     private val notesReference
         get() = currentUser?.let {
@@ -45,7 +45,8 @@ class FirestoreProvider: RemoteDataProvider {
         }
     }
 
-    override fun saveNote(note: Note) : LiveData<NoteResult> = MutableLiveData<NoteResult>().apply {
+    override fun saveNote(note: Note) : LiveData<NoteResult> =
+        MutableLiveData<NoteResult>().apply {
         try {
             notesReference.document(note.mId).set(note)
                 .addOnSuccessListener { value = NoteResult.Success(note) }
@@ -57,7 +58,23 @@ class FirestoreProvider: RemoteDataProvider {
         }
     }
 
-    override fun getNoteById(id: String): LiveData<NoteResult> = MutableLiveData<NoteResult>().apply {
+    override fun deleteNote(id: String): LiveData<NoteResult> =
+        MutableLiveData<NoteResult>().apply {
+        try {
+            notesReference.document(id).delete()
+                .addOnSuccessListener { snashot ->
+                    value = NoteResult.Success(null)
+                }
+                .addOnFailureListener {
+                    value = NoteResult.Error(it)
+                }
+        } catch (t: Throwable) {
+            value = NoteResult.Error(t)
+        }
+    }
+
+    override fun getNoteById(id: String): LiveData<NoteResult> = MutableLiveData<NoteResult>()
+        .apply {
         try {
             notesReference.document(id).get()
                 .addOnSuccessListener {snapshot ->
