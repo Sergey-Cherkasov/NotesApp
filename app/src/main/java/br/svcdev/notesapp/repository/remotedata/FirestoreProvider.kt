@@ -35,6 +35,7 @@ class FirestoreProvider(private val firebaseAuth: FirebaseAuth,
         try {
             notesReference.addSnapshotListener { snapShop, error ->
                 error?.let {
+                    value = NoteResult.Error(it)
                 } ?: snapShop?.let {
                     val notes = snapShop.documents.mapNotNull { it.toObject(Note::class.java) }
                     value = NoteResult.Success(notes)
@@ -50,9 +51,7 @@ class FirestoreProvider(private val firebaseAuth: FirebaseAuth,
         try {
             notesReference.document(note.mId).set(note)
                 .addOnSuccessListener { value = NoteResult.Success(note) }
-                .addOnFailureListener {
-                    value = NoteResult.Error(it)
-                }
+                .addOnFailureListener { value = NoteResult.Error(it) }
         } catch (t: Throwable) {
             value = NoteResult.Error(t)
         }
@@ -62,12 +61,8 @@ class FirestoreProvider(private val firebaseAuth: FirebaseAuth,
         MutableLiveData<NoteResult>().apply {
         try {
             notesReference.document(id).delete()
-                .addOnSuccessListener { snashot ->
-                    value = NoteResult.Success(null)
-                }
-                .addOnFailureListener {
-                    value = NoteResult.Error(it)
-                }
+                .addOnSuccessListener { value = NoteResult.Success(null) }
+                .addOnFailureListener { value = NoteResult.Error(it) }
         } catch (t: Throwable) {
             value = NoteResult.Error(t)
         }

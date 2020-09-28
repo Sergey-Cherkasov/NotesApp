@@ -127,7 +127,7 @@ class NoteActivity: BaseActivity<NoteViewState.Data, NoteViewState>() {
             .setTitle("Delete note")
             .setMessage("Are You sure that you want to delete note?")
             .setNegativeButton("Cancel") { dialog, which -> dialog.dismiss() }
-            .setPositiveButton("Delete") { dialog, which -> viewModel.deleteNote() }
+            .setPositiveButton(R.string.delete) { dialog, which -> viewModel.deleteNote() }
             .show()
     }
 }
