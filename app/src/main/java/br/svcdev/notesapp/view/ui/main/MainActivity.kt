@@ -18,9 +18,12 @@ import br.svcdev.notesapp.view.ui.splash.SplashActivity
 import br.svcdev.notesapp.viewmodels.MainViewModel
 import com.firebase.ui.auth.AuthUI
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import org.koin.android.viewmodel.ext.android.viewModel
+import kotlin.coroutines.CoroutineContext
 
-class MainActivity : BaseActivity<List<Note>?, MainViewState>(), LogoutDialog.LogoutListener {
+class MainActivity : BaseActivity<List<Note>?>(), LogoutDialog.LogoutListener {
 
     companion object {
         fun start(context: Context) = Intent(context, MainActivity::class.java).apply {
