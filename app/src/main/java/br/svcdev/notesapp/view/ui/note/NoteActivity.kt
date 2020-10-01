@@ -8,18 +8,20 @@ import android.text.TextWatcher
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
-import androidx.lifecycle.ViewModelProvider
 import br.svcdev.notesapp.R
 import br.svcdev.notesapp.common.extensions.getColorInt
 import br.svcdev.notesapp.repository.model.Note
 import br.svcdev.notesapp.view.ui.base.BaseActivity
 import br.svcdev.notesapp.viewmodels.NoteViewModel
 import kotlinx.android.synthetic.main.activity_note.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.coroutines.CoroutineContext
 
-class NoteActivity: BaseActivity<NoteViewState.Data, NoteViewState>() {
+class NoteActivity: BaseActivity<NoteData>() {
     companion object{
         private const val NOTE_KEY = "note"
         private const val DATE_FORMAT = "dd.MM.yy HH:mm"
@@ -30,8 +32,11 @@ class NoteActivity: BaseActivity<NoteViewState.Data, NoteViewState>() {
                 context.startActivity(this)
             }
     }
+
     private var note: Note? = null
+
     override val viewModel : NoteViewModel by viewModel()
+
     override val layoutResource = R.layout.activity_note
 
     var color: Note.Color = Note.Color.WHITE
@@ -105,7 +110,7 @@ class NoteActivity: BaseActivity<NoteViewState.Data, NoteViewState>() {
         else -> super.onOptionsItemSelected(item)
     }
 
-    override fun renderData(data: NoteViewState.Data) {
+    override fun renderData(data: NoteData) {
         if (data.isDeleted) {
             finish()
             return
@@ -130,4 +135,5 @@ class NoteActivity: BaseActivity<NoteViewState.Data, NoteViewState>() {
             .setPositiveButton(R.string.delete) { dialog, which -> viewModel.deleteNote() }
             .show()
     }
+
 }

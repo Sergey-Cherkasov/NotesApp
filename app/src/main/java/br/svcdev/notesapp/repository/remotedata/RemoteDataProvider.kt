@@ -1,14 +1,15 @@
 package br.svcdev.notesapp.repository.remotedata
 
-import androidx.lifecycle.LiveData
 import br.svcdev.notesapp.repository.model.Note
 import br.svcdev.notesapp.repository.model.NoteResult
 import br.svcdev.notesapp.repository.model.User
+import kotlinx.coroutines.channels.ReceiveChannel
 
 interface RemoteDataProvider {
-    fun getCurrentUser(): LiveData<User?>
-    fun subscribeToAllNotes(): LiveData<NoteResult>
-    fun saveNote(note: Note): LiveData<NoteResult>
-    fun deleteNote(id: String): LiveData<NoteResult>
-    fun getNoteById(id: String): LiveData<NoteResult>
+    fun subscribeToAllNotes(): ReceiveChannel<NoteResult>
+
+    suspend fun getCurrentUser(): User?
+    suspend fun getNoteById(id: String): Note?
+    suspend fun saveNote(note: Note): Note
+    suspend fun deleteNote(id: String)
 }
